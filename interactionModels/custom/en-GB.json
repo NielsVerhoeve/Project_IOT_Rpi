@@ -1,0 +1,267 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "servo control",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "ServoControlIntent",
+          "slots": [
+            {
+              "name": "servoNr",
+              "type": "SERVOS",
+              "samples": [
+                "{servoNr}"
+              ],
+              "multipleValues": {
+                "enabled": true
+              }
+            },
+            {
+              "name": "action",
+              "type": "ACTIONS",
+              "samples": [
+                "{action}"
+              ]
+            },
+            {
+              "name": "degrees",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "{degrees}"
+              ]
+            }
+          ],
+          "samples": [
+            "servo {servoNr} {action} {degrees} degrees"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "id": "4",
+              "name": {
+                "value": "four",
+                "synonyms": [
+                  "grip",
+                  "claw"
+                ]
+              }
+            },
+            {
+              "id": "3",
+              "name": {
+                "value": "three",
+                "synonyms": [
+                  "length",
+                  "reach"
+                ]
+              }
+            },
+            {
+              "id": "2",
+              "name": {
+                "value": "two",
+                "synonyms": [
+                  "height"
+                ]
+              }
+            },
+            {
+              "id": "1",
+              "name": {
+                "value": "one",
+                "synonyms": [
+                  "base"
+                ]
+              }
+            }
+          ],
+          "name": "SERVOS"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "Set",
+                "synonyms": [
+                  "set"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Add",
+                "synonyms": [
+                  "add"
+                ]
+              }
+            }
+          ],
+          "name": "ACTIONS"
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "ServoControlIntent",
+          "confirmationRequired": true,
+          "prompts": {
+            "confirmation": "Confirm.Intent.1164216831001"
+          },
+          "slots": [
+            {
+              "name": "servoNr",
+              "type": "SERVOS",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1611168978147.352117935635"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.1611168978147.352117935635.406904666065"
+                }
+              ]
+            },
+            {
+              "name": "action",
+              "type": "ACTIONS",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1611168978147.1560072880889"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.1611168978147.1560072880889.1000743577797"
+                }
+              ]
+            },
+            {
+              "name": "degrees",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1611168978147.1041899494346"
+              },
+              "validations": [
+                {
+                  "type": "isLessThanOrEqualTo",
+                  "prompt": "Slot.Validation.1611168978147.1041899494346.1603636516443",
+                  "value": "90"
+                },
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.1611168978147.1041899494346.61723076735",
+                  "value": "-90"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Slot.Validation.1611168978147.352117935635.406904666065",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please chose a servo between one and four"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1611168978147.1560072880889.1000743577797",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please chose set or add"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1611168978147.1041899494346.1603636516443",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please choose a value between minus ninety en ninety degrees"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1611168978147.1041899494346.61723076735",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please choose a value between minus ninety en ninety degrees"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1611168978147.352117935635",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Which servo would you like to control?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1611168978147.1560072880889",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What would you like to do?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1611168978147.1041899494346",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "How many degrees?"
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Intent.1164216831001",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "servo {servoNr} {action} {degrees} degrees"
+          }
+        ]
+      }
+    ]
+  },
+  "version": "47"
+}
